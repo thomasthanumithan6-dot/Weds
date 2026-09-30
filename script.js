@@ -36,6 +36,8 @@ function enterWebsite() {
 
 introScreen.addEventListener("click", function () {
 
+    startMusic();
+
     if (introPlayButton.dataset.continue === "true") {
         enterWebsite();
         return;
@@ -51,7 +53,10 @@ introScreen.addEventListener("click", function () {
 
 });
 
-introVideo.addEventListener("ended", enterWebsite);
+introVideo.addEventListener("ended", function () {
+    introScreen.classList.add("is-black");
+    window.setTimeout(enterWebsite, 2000);
+});
 
 introVideo.addEventListener("error", function () {
     introPlayButton.textContent = "Continue to website";
