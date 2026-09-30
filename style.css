@@ -19,10 +19,6 @@ body {
     overflow-x: hidden;
 }
 
-body.locked {
-    overflow: hidden;
-}
-
 img {
     max-width: 100%;
     display: block;
@@ -200,13 +196,14 @@ a {
     top: 24px;
     right: 24px;
     z-index: 6;
-    width: 44px;
+    min-width: 44px;
     height: 44px;
-    border-radius: 50%;
+    padding: 0 12px;
+    border-radius: 22px;
     border: 1px solid #c9a961;
     background: rgba(255, 255, 255, 0.55);
     color: #6d5940;
-    font-size: 16px;
+    font-size: 11px;
     cursor: pointer;
     backdrop-filter: blur(6px);
 }
@@ -573,10 +570,14 @@ a {
     animation: heroIn 1.8s ease;
 }
 
+.hero .eyebrow {
+    margin-bottom: 26px;
+}
+
 .hero h1 {
     font-family: "Great Vibes", cursive;
     font-size: clamp(75px, 12vw, 140px);
-    line-height: .85;
+    line-height: 1.05;
     font-weight: 400;
 }
 
@@ -623,14 +624,15 @@ a {
     right: 20px;
     top: 20px;
     z-index: 5000;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+    min-width: 48px;
+    height: 44px;
+    padding: 0 12px;
+    border-radius: 22px;
     border: 1px solid rgba(255,255,255,.5);
     background: rgba(30,25,20,.5);
     color: white;
     backdrop-filter: blur(12px);
-    font-size: 20px;
+    font-size: 11px;
 }
 
 
@@ -683,6 +685,16 @@ a {
 
 .countdown-section .script-title {
     margin-top: 22px;
+    animation: countdown-title-float 3.5s ease-in-out infinite;
+}
+
+@keyframes countdown-title-float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
 }
 
 .countdown {
@@ -1385,8 +1397,7 @@ footer span {
    PETALS
 ===================================================== */
 
-.petal-container,
-.hearts-container {
+.petal-container {
     position: absolute;
     inset: 0;
     z-index: 2;
@@ -1403,14 +1414,6 @@ footer span {
     background: rgba(255,235,235,.85);
     animation: fall linear forwards;
 }
-
-.floating-heart {
-    position: absolute;
-    bottom: -30px;
-    color: rgba(255,220,220,.7);
-    animation: heartFloat linear forwards;
-}
-
 
 /* =====================================================
    LIGHTBOX

@@ -2,24 +2,6 @@
    ELEMENTS
 ===================================================== */
 
-const openingScreen =
-    document.getElementById("openingScreen");
-
-const invitationCard =
-    document.getElementById("invitationCard");
-
-const tapHint =
-    document.getElementById("tapHint");
-
-const goldParticles =
-    document.getElementById("goldParticles");
-
-const blackTransition =
-    document.getElementById("blackTransition");
-
-const openingMusicButton =
-    document.getElementById("openingMusicButton");
-
 const website =
     document.getElementById("website");
 
@@ -36,118 +18,17 @@ let musicWasPlayingBeforeVideo = false;
 
 
 /* =====================================================
-   OPENING PAGE
-===================================================== */
-
-let invitationOpened = false;
-
-function spawnGoldParticles() {
-
-    if (!goldParticles) {
-        return;
-    }
-
-    for (let i = 0; i < 18; i += 1) {
-
-        const particle =
-            document.createElement("span");
-
-        particle.className = "gold-particle";
-        particle.style.left = (Math.random() * 100) + "%";
-        particle.style.animationDelay = (Math.random() * 1.2) + "s";
-        particle.style.animationDuration = (2.6 + Math.random() * 1.6) + "s";
-
-        goldParticles.appendChild(particle);
-
-        setTimeout(function () {
-            particle.remove();
-        }, 5000);
-
-    }
-
-}
-
-let cardOpened = false;
-
-function openCard() {
-
-    if (cardOpened) {
-        return;
-    }
-
-    cardOpened = true;
-
-    openingScreen.classList.add("opening");
-    invitationCard.classList.add("open");
-
-    if (tapHint) {
-        tapHint.classList.add("hide");
-    }
-
-    spawnGoldParticles();
-    startMusic();
-
-    setTimeout(enterWebsite, 10000);
-
-}
-
-function enterWebsite() {
-
-    if (invitationOpened || openingScreen.classList.contains("hide")) {
-        return;
-    }
-
-    invitationOpened = true;
-
-    if (blackTransition) {
-        blackTransition.classList.add("show");
-    }
-
-    setTimeout(function () {
-
-        openingScreen.classList.add("hide");
-        openingScreen.style.display = "none";
-
-        website.classList.remove("hidden");
-        document.body.classList.remove("locked");
-
-        if (!musicPlaying) {
-            startMusic();
-        }
-
-        startPetals();
-        startHearts();
-
-        setTimeout(function () {
-            if (blackTransition) {
-                blackTransition.classList.remove("show");
-            }
-        }, 150);
-
-    }, 650);
-
-}
-
-if (invitationCard) {
-    invitationCard.addEventListener("click", openCard);
-    invitationCard.addEventListener("touchstart", function (event) {
-        event.preventDefault();
-        openCard();
-    }, { passive: false });
-}
-
-
-/* =====================================================
    MUSIC
 ===================================================== */
 
 let musicPlaying = false;
-const musicButtons = [musicButton, openingMusicButton].filter(Boolean);
+const musicButtons = [musicButton].filter(Boolean);
 
-function setMusicIcon(label) {
+function setMusicLabel(label) {
 
     musicButtons.forEach(function (button) {
-        button.innerHTML = label;
+        button.textContent = label;
+        button.setAttribute("aria-label", label);
     });
 
 }
@@ -161,14 +42,14 @@ function startMusic() {
 
             musicPlaying = true;
 
-            setMusicIcon("❚❚");
+            setMusicLabel("Pause music");
 
         })
         .catch(function (error) {
 
             musicPlaying = false;
 
-            setMusicIcon("♫");
+            setMusicLabel("Play music");
 
             console.warn("wedding.mp3 could not start playing:", error);
 
@@ -191,7 +72,7 @@ musicButtons.forEach(function (button) {
 
             musicPlaying = false;
 
-            setMusicIcon("♫");
+            setMusicLabel("Play music");
 
         } else {
 
@@ -225,7 +106,7 @@ if (loveStoryVideo) {
         if (musicWasPlayingBeforeVideo) {
             music.pause();
             musicPlaying = false;
-            setMusicIcon("♫");
+            setMusicLabel("Play music");
         }
     });
 
@@ -237,11 +118,11 @@ if (loveStoryVideo) {
         music.play()
             .then(function () {
                 musicPlaying = true;
-                setMusicIcon("❚❚");
+                setMusicLabel("Pause music");
             })
             .catch(function () {
                 musicPlaying = false;
-                setMusicIcon("♫");
+                setMusicLabel("Play music");
             });
     });
 
@@ -394,62 +275,12 @@ function startPetals() {
 
 }
 
+startPetals();
+
 
 /* =====================================================
    FLOATING HEARTS
 ===================================================== */
-
-function createHeart() {
-
-    const container =
-        document.querySelector(".hearts-container");
-
-    if (!container) return;
-
-
-    const heart =
-        document.createElement("div");
-
-    heart.className =
-        "floating-heart";
-
-    heart.innerHTML = "♥";
-
-
-    heart.style.left =
-        Math.random() * 100 + "%";
-
-
-    heart.style.fontSize =
-        Math.random() * 12 + 10 + "px";
-
-
-    const duration =
-        Math.random() * 6 + 7;
-
-
-    heart.style.animationDuration =
-        duration + "s";
-
-
-    container.appendChild(heart);
-
-
-    setTimeout(function () {
-
-        heart.remove();
-
-    }, duration * 1000);
-
-}
-
-
-function startHearts() {
-
-    setInterval(createHeart, 1200);
-
-}
-
 
 /* =====================================================
    GALLERY LIGHTBOX
