@@ -45,6 +45,52 @@ a {
     display: none;
 }
 
+body.locked {
+    overflow: hidden;
+}
+
+.intro-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 20000;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: #111;
+    cursor: pointer;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.intro-screen.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.intro-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.intro-play-button {
+    position: absolute;
+    left: 50%;
+    bottom: max(28px, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    padding: 13px 22px;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    background: rgba(20, 18, 15, 0.72);
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.intro-play-button[hidden] {
+    display: none;
+}
+
 .section {
     padding: 110px 20px;
 }
