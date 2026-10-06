@@ -11,9 +11,6 @@ const introScreen =
 const introVideo =
     document.getElementById("introVideo");
 
-const introPlayButton =
-    document.getElementById("introPlayButton");
-
 const music =
     document.getElementById("music");
 
@@ -24,6 +21,7 @@ const loveStoryVideo =
     document.getElementById("loveStoryVideo");
 
 let musicWasPlayingBeforeVideo = false;
+let introTransitionStarted = false;
 
 function enterWebsite() {
 
@@ -34,34 +32,31 @@ function enterWebsite() {
 
 }
 
+function transitionToWebsite() {
+
+    if (introTransitionStarted) {
+        return;
+    }
+
+    introTransitionStarted = true;
+    introScreen.classList.add("is-black");
+    window.setTimeout(enterWebsite, 1000);
+
+}
+
 introScreen.addEventListener("click", function () {
 
     startMusic();
 
-    if (introPlayButton.dataset.continue === "true") {
-        enterWebsite();
-        return;
-    }
-
     introVideo.play()
-        .then(function () {
-            introPlayButton.hidden = true;
-        })
         .catch(function (error) {
             console.warn("mp41.mp4 could not start playing:", error);
         });
 
 });
 
-introVideo.addEventListener("ended", function () {
-    introScreen.classList.add("is-black");
-    window.setTimeout(enterWebsite, 2000);
-});
-
-introVideo.addEventListener("error", function () {
-    introPlayButton.textContent = "Continue to website";
-    introPlayButton.dataset.continue = "true";
-});
+introVideo.addEventListener("ended", transitionToWebsite);
+introVideo.addEventListener("error", transitionToWebsite);
 
 
 /* =====================================================
