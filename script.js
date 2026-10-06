@@ -51,6 +51,7 @@ introScreen.addEventListener("click", function () {
     introVideo.play()
         .catch(function (error) {
             console.warn("mp41.mp4 could not start playing:", error);
+            transitionToWebsite();
         });
 
 });
@@ -465,5 +466,4 @@ revealItems.forEach(function (item) {
     observer.observe(item);
 
 });
-
 
