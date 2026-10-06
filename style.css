@@ -1386,7 +1386,7 @@ body.locked {
 
 .final-video-fallback {
     background:
-        url("thanu2.jpeg")
+        url("photo.jpeg")
         center / cover no-repeat;
     filter: brightness(0.7) saturate(0.8);
 }
